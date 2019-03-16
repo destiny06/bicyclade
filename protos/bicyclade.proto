@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option objc_class_prefix = "HLW";
+
+package bicyclade;
+
+service BycServer {
+  rpc Connect (Connection) returns (stream Game) {}
+  rpc ExecuteAction (ActionList) returns (Rstatus) {}
+}
+
+service ClientServer {
+  rpc Stream (Action) returns (Rstatus) {}
+}
+
+message Connection {
+  string ip = 1;
+  string port = 2;
+}
+
+message Action {
+  string message = 1;
+}
+
+message ActionList {
+  repeated Action action = 1;
+}
+
+message Rstatus {
+  enum Status {
+    OK = 0;
+    KO = 1;
+  }
+  Status status = 1;
+}
+
+message Game {
+  string todo = 1;
+}
+
+message Player {
+  //TODO
+}
