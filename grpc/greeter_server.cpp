@@ -22,11 +22,7 @@
 
 #include <grpcpp/grpcpp.h>
 
-#ifdef BAZEL_BUILD
-#include "examples/protos/helloworld.grpc.pb.h"
-#else
-#include "helloworld.grpc.pb.h"
-#endif
+#include "generated/helloworld.grpc.pb.h"
 
 using grpc::Server;
 using grpc::ServerBuilder;

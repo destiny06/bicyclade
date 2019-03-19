@@ -4,7 +4,7 @@ option objc_class_prefix = "HLW";
 
 package bicyclade;
 
-service BycServer {
+service BicServer {
   rpc Connect (Connection) returns (stream Game) {}
   rpc ExecuteAction (ActionList) returns (Rstatus) {}
 }

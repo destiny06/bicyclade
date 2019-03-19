@@ -24,7 +24,7 @@
 #include <grpc/support/log.h>
 #include <thread>
 
-#include "helloworld.grpc.pb.h"
+#include "generated/helloworld.grpc.pb.h"
 
 using grpc::Channel;
 using grpc::ClientAsyncResponseReader;

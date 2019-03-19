@@ -24,7 +24,7 @@
 #include <grpcpp/grpcpp.h>
 #include <grpc/support/log.h>
 
-#include "helloworld.grpc.pb.h"
+#include "generated/helloworld.grpc.pb.h"
 
 using grpc::Server;
 using grpc::ServerAsyncResponseWriter;

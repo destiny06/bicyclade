@@ -36,21 +36,33 @@ PROTOS_PATH = ./protos
 
 vpath %.proto $(PROTOS_PATH)
 
-all: system-check server
+all: system-check greeter_client greeter_server greeter_async_client greeter_async_client2 greeter_async_server
 
-server: bicyclade.pb.o bicyclade.grpc.pb.o server.o
+greeter_client: generated/helloworld.pb.o generated/helloworld.grpc.pb.o greeter_client.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
-.PRECIOUS: %.grpc.pb.cc
-%.grpc.pb.cc: %.proto
-	$(PROTOC) -I $(PROTOS_PATH) --grpc_out=. --plugin=protoc-gen-grpc=$(GRPC_CPP_PLUGIN_PATH) $<
+greeter_server: generated/helloworld.pb.o generated/helloworld.grpc.pb.o greeter_server.o
+	$(CXX) $^ $(LDFLAGS) -o $@
 
-.PRECIOUS: %.pb.cc
-%.pb.cc: %.proto
-	$(PROTOC) -I $(PROTOS_PATH) --cpp_out=. $<
+greeter_async_client: generated/helloworld.pb.o generated/helloworld.grpc.pb.o greeter_async_client.o
+	$(CXX) $^ $(LDFLAGS) -o $@
+
+greeter_async_client2: generated/helloworld.pb.o generated/helloworld.grpc.pb.o greeter_async_client2.o
+	$(CXX) $^ $(LDFLAGS) -o $@
+
+greeter_async_server: generated/helloworld.pb.o generated/helloworld.grpc.pb.o greeter_async_server.o
+	$(CXX) $^ $(LDFLAGS) -o $@
+
+.PRECIOUS: generated/%.grpc.pb.cc
+generated/%.grpc.pb.cc: %.proto
+	$(PROTOC) -I $(PROTOS_PATH) --grpc_out=./generated --plugin=protoc-gen-grpc=$(GRPC_CPP_PLUGIN_PATH) $<
+
+.PRECIOUS: generated/%.pb.cc
+generated/%.pb.cc: %.proto
+	$(PROTOC) -I $(PROTOS_PATH) --cpp_out=./generated $<
 
 clean:
-	rm -f *.o *.pb.cc *.pb.h server
+	rm -f generated/*.o generated/*.pb.cc generated/*.pb.h *.o *.pb.cc *.pb.h greeter_client greeter_server greeter_async_client greeter_async_client2 greeter_async_server
 
 
 # The following is to test your system and ensure a smoother experience.
