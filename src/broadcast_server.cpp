@@ -1,7 +1,7 @@
 #include <websocketpp/config/asio_no_tls.hpp>
 
 #include <websocketpp/server.hpp>
-
+#include "generated/bicyclade.pb.h"
 #include <iostream>
 #include <set>
 
@@ -22,7 +22,8 @@ using websocketpp::lib::mutex;
 using websocketpp::lib::lock_guard;
 using websocketpp::lib::unique_lock;
 using websocketpp::lib::condition_variable;
-
+using bicyclade::Action;
+using namespace std;
 /* on_open insert connection_hdl into channel
  * on_close remove connection_hdl from channel
  * on_message queue send to all channels
@@ -121,6 +122,9 @@ public:
             } else if (a.type == MESSAGE) {
                 lock_guard<mutex> guard(m_connection_lock);
 
+                Action act;
+                act.ParseFromString(a.msg->get_payload());
+                //cout << "reçu " << act.message() << act.valeur() << endl;
                 con_list::iterator it;
                 for (it = m_connections.begin(); it != m_connections.end(); ++it) {
                     m_server.send(*it,a.msg);

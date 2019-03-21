@@ -20,6 +20,7 @@ message Connection {
 
 message Action {
   string message = 1;
+  int32 valeur = 2;
 }
 
 message ActionList {

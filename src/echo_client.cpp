@@ -30,7 +30,7 @@
 
 #include <websocketpp/config/asio_no_tls_client.hpp>
 #include <websocketpp/client.hpp>
-
+#include "generated/bicyclade.pb.h"
 #include <websocketpp/common/thread.hpp>
 #include <websocketpp/common/memory.hpp>
 
@@ -39,7 +39,8 @@
 #include <map>
 #include <string>
 #include <sstream>
-
+using bicyclade::Action;
+using namespace std;
 typedef websocketpp::client<websocketpp::config::asio_client> client;
 
 class connection_metadata {
@@ -80,7 +81,9 @@ public:
     }
 
     void on_message(websocketpp::connection_hdl, client::message_ptr msg) {
-        std::cout << msg->get_payload() << std::flush << std::endl;
+        Action act;
+        act.ParseFromString(msg->get_payload());
+        cout << "reçu " << act.message() << act.valeur() << std::flush << endl;
         if (msg->get_opcode() == websocketpp::frame::opcode::text) {
             m_messages.push_back("<< " + msg->get_payload());
         } else {
@@ -230,7 +233,12 @@ public:
             std::cout << "> No connection found with id " << id << std::endl;
             return;
         }
-        m_endpoint.send(metadata_it->second->get_hdl(), message, websocketpp::frame::opcode::text);
+        Action act;
+        act.set_message(message);
+        act.set_valeur(5);
+        string sria;
+        act.SerializeToString(&sria);
+        m_endpoint.send(metadata_it->second->get_hdl(), sria, websocketpp::frame::opcode::text);
         if (ec) {
             std::cout << "> Error sending message: " << ec.message() << std::endl;
             return;
