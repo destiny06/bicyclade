@@ -8,14 +8,15 @@
 
 apt-get update  
 apt-get upgrade  
-apt-get install gcc g++ cmake python pkg-config  
+apt-get install gcc g++ cmake python pkg-config autoconf automake libtool curl  
+apt-get install libprotobuf-dev protobuf-compiler  
 apt-get install libboost-all-dev  
-apt-get install libwebsocketpp-dev
+apt-get install libwebsocketpp-dev  
 
 #### How to compile
 
-g++ -std=c++11 echo_client.cpp -lboost_system -lpthread -D_WEBSOCKETPP_CPP11_STL_ -o client  
-g++ -std=c++11 broadcast_server.cpp -lboost_system -lpthread -D_WEBSOCKETPP_CPP11_STL_ -o server
+cd src/  
+make
 
 ### How to use the client
 
@@ -24,8 +25,6 @@ send <id> message // to send message
 close <id> reason // to close  
 show <id> // to show stuff about the connect  
 quit // to quit
-
-And it should compile and work.
 
 #### Normally not needed but we never know:
 
