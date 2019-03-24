@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+src/server/server
+src/client/client
+src/generated/*.h
+src/generated/*.cc
