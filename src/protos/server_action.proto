@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+import "game.proto"
+
+message ServerAction {
+  optional ServerActionType type;
+  optional Colour colour;
+  optional Game game;
+}
+
+enum ServerActionType {
+  ACK_CREATE_GAME;
+  ADD_SPECTATOR;
+  REMOVE_SPECTATOR;
+  ADD_PLAYER;
+  REMOVE_PLAYER;
+  START_GAME;
+}

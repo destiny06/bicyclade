@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+message Game {
+  optional uint32 id;
+  repeated Player players;
+  repeated Card discarded_cards;
+  repeated Card displayed_cards;
+  repeated Offering offerings;
+  repeated God gods;
+  repeated Isle isles;
+}
+
+message Player {
+  optional string name;
+  required Colour colour;
+  optional uint32 coins;
+  optional uint32 philosophers;
+  optional uint32 priests;
+  repeated Troop troops;
+  repeated Fleet fleets;
+}
+
+enum Colour {
+  BLACK;
+  BLUE;
+  PURPLE;
+  RED;
+  YELLOW;
+}
+
+message Troop {
+  optional Colour colour;
+  required uint32 id;
+  optional Spot spot;
+}
+
+message Fleet {
+  optional Colour colour;
+  required uint32 id;
+  optional Spot spot;
+}
+
+message Card {
+  optional uint32 spot;
+  optional Creature creature;
+}
+
+enum Creature {
+  CYCLOPS
+  KRAKEN
+}
+
+message Offering {
+  optional Colour colour;
+  optional uint32 id;
+  optional GodType god;
+  optional uint32 bid;
+  optional uint32 order;
+}
+
+enum GodType {
+  APOLLO = 0;
+  ARES = 1;
+  ATHENA = 2;
+  POSEIDON = 3;
+  ZEUS = 4;
+}
+
+message God {
+  optional GodType type;
+  optional uint32 position;
+}
+
+message Spot {
+  required uint32 x = 1;
+  required uint32 y = 2;
+}
+
+message Isle {
+  optional Colour colour;
+  repeated Spot spots;
+  repeated ProsperityMarker prosperity_markers;
+  repeated BuildSpace build_spaces;
+}
+
+message ProsperityMarker {
+  optional uint32 id;
+  optional Spot spot;
+}
+
+message BuildSpace {
+  repeated Spot spots,
+  repeated NormalBuilding normal_buildings;
+  optional Metropoly metropoly;
+}
+
+message NormalBuilding {
+  repeated Spot spots,
+  optional uint32 id;
+  optional BuildingType type;
+}
+
+enum BuildingType {
+  FORTRESS;
+  PORT;
+  TEMPLE;
+  UNIVERSITY;
+}
+
+message Metropoly {
+  repeated Spot spots,
+  optional uint32 id;
+}

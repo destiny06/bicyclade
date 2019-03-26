@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+import "game.proto"
+
+message SpectatorAction {
+  optional uint32 spectator_id;
+  optional SpectatorActionType type;
+  optional uint32 game_id;
+}
+
+enum SpectatorActionType {
+  CREATE_GAME
+  JOIN_GAME
+  QUIT_GAME
+}
+
+message ServerAction {
+  optional ServerActionType type;
+  optional Colour colour;
+  optional Game game;
+}
+
+enum ServerActionType {
+  ACK_CREATE_GAME;
+  ADD_SPECTATOR;
+  REMOVE_SPECTATOR;
+  ADD_PLAYER;
+  REMOVE_PLAYER;
+  START_GAME;
+}

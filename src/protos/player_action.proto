@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+import "game.proto"
+
+message PlayerAction {
+  required Colour colour = 0;
+  required PlayerActionType type = 1;
+  optional GodType god = 2;
+  optional uint32 offering = 3;
+  optional uint32 card_spot = 4;
+  repeated Spot spots = 5 [packed=true];
+  repeated FleetMove fleet_moves = 6 [packed=true];
+  repeated TroopMove troop_moves = 6 [packed=true];
+}
+
+enum PlayerActionType {
+  BUILD = 0;
+  CALL_CARD = 1;
+  CHANGE_CARD = 2;
+  MOVE_FLEETS = 3;
+  MOVE_TROOPS = 4;
+  PUT_OFFERING_MARKER = 5;
+  PUT_PROSPERITY_MARKER = 6;
+  RECRUIT = 7;
+}
+
+message FleetMove {
+  repeated Fleet fleets;
+  optional Spot start;
+  optional Spot end;
+}
+
+message TroopMove {
+  repeated Troop troops;
+  optional Spot start;
+  optional Spot end;
+}
+
+message SpectatorAction {
+  optional uint32 spectator_id;
+  optional SpectatorActionType type;
+  optional uint32 game_id;
+}
+
+enum SpectatorActionType {
+  CREATE_GAME
+  JOIN_GAME
+  QUIT_GAME
+}
+
+message ServerAction {
+  optional ServerActionType type;
+  optional Colour colour;
+  optional Game game;
+}
+
+enum ServerActionType {
+  ACK_CREATE_GAME;
+  ADD_SPECTATOR;
+  REMOVE_SPECTATOR;
+  ADD_PLAYER;
+  REMOVE_PLAYER;
+  START_GAME;
+}
