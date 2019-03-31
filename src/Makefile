@@ -27,20 +27,20 @@ PROTOS_PATH = ./protos
 
 vpath %.proto $(PROTOS_PATH)
 
-all: system-check client server
+all: system-check client/client server
 
-client: generated/bicyclade.pb.o echo_client.o
+client/client: generated/bicyclade.pb.o client/echo_client.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
-server: generated/bicyclade.pb.o broadcast_server.o
-	$(CXX) $^ $(LDFLAGS) -o $@
+server: generated/bicyclade.pb.o server/websocket.o bom/Client.o server/Server.o server/main.o
+	$(CXX) $^ $(LDFLAGS) -o server/server
 
 .PRECIOUS: generated/%.pb.cc
 generated/%.pb.cc: %.proto
 	$(PROTOC) -I $(PROTOS_PATH) --cpp_out=./generated $<
 
 clean:
-	rm -f generated/*.o generated/*.pb.cc generated/*.pb.h *.o *.pb.cc *.pb.h client server
+	rm -f generated/* server/*.o client/*o bom/*.o lient/client server/server
 
 
 # The following is to test your system and ensure a smoother experience.
