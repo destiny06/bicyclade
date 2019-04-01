@@ -39,7 +39,7 @@
 #include <map>
 #include <string>
 #include <sstream>
-using bicyclade::Action;
+using proto::Action;
 using namespace std;
 typedef websocketpp::client<websocketpp::config::asio_client> client;
 

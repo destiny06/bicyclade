@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+// Actions from the server related to the game
+message PAction_UPDATE_COINS {
+   int32 value = 1;
+}
+enum PGameActionType {
+  UPDATE_COINS = 0; // dedicated message PAction_UPDATE_COINS
+}
+message PGameAction {
+  PGameActionType type = 1;
+  PAction_UPDATE_COINS update_coins = 2;
+}

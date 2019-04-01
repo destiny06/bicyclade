@@ -1,44 +1,31 @@
 syntax = "proto3";
 
-option objc_class_prefix = "HLW";
+import "gameactions.proto";
+import "clientactions.proto";
+import "serveractions.proto";
+import "playeractions.proto";
 
-package bicyclade;
 
-service BicServer {
-  rpc Connect (Connection) returns (stream Game) {}
-  rpc ExecuteAction (ActionList) returns (Rstatus) {}
-}
+package proto;
 
-service ClientServer {
-  rpc Stream (Action) returns (Rstatus) {}
-}
-
-message Connection {
-  string ip = 1;
-  string port = 2;
-}
-
+// deprecated message, here just to compile while we remove it completly from the client
 message Action {
   string message = 1;
   int32 valeur = 2;
 }
 
-message ActionList {
-  repeated Action action = 1;
+enum PGlobalActionType {
+  CLIENT_ACTION = 0;
+  PLAYER_ACTION = 1;// unsupported
+  SERVER_ACTION = 2;
+  GAME_ACTION = 3;
 }
 
-message Rstatus {
-  enum Status {
-    OK = 0;
-    KO = 1;
-  }
-  Status status = 1;
-}
-
-message Game {
-  string todo = 1;
-}
-
-message Player {
-  //TODO
+// The only protobuf message servers and clients can send, main container of any message
+message PContainer {
+  PGlobalActionType global_action = 1;
+  PClientAction client_action = 2;
+  PPlayerAction player_action = 3;
+  PServerAction server_action = 4;
+  PGameAction game_action = 5;
 }

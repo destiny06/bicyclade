@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+message PAction_PUT_OFFERING_MARKER {
+  //TODO
+}
+
+enum PPlayerActionType {
+  PUT_OFFERING_MARKER = 0; // dedicated message PAction_PUT_OFFERING_MARKER
+}
+
+message PPlayerAction {
+    PPlayerActionType type = 1;
+    string name = 2;
+    PAction_PUT_OFFERING_MARKER action_put_off_marker = 3;
+}
