@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "common.proto";
+
+// Actions from the server
+message PAction_START_GAME {
+   repeated PPlayer player_list = 1;
+}
+enum PServerActionType {
+  START_GAME = 0; // dedicated message PAction_STARTGAME
+}
+message PServerAction {
+  PServerActionType type = 1;
+  PAction_START_GAME action_start = 2;
+}

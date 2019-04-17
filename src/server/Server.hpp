@@ -1,23 +1,21 @@
 #pragma once
 
 #include "../bom/Client.hpp"
-#include "../generated/bicyclade.pb.h"
 
-#include "websocket.hpp"
+#include "WebsocketServer.hpp"
 
 #include <queue>
 #include <condition_variable>
 
-using bicyclade::Action;
 using namespace std;
 typedef std::map<int, Client*> clientMapType;
 
 class Server {
 private:
     condition_variable actionCondVar;
-    std::queue<Action> actionsQueue;
+    std::queue<ClientAction> actionsQueue;
     mutex actionLock;
-    websocketserver socketServer;
+    WebsocketServer socketServer;
     clientMapType clientsMap;
 
 public:

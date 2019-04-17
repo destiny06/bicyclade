@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+enum PColour {
+  BLACK = 0;
+  BLUE = 1;
+  PURPLE = 2;
+  RED = 3;
+  YELLOW = 4;
+}
+
+message PPlayer {
+  string name = 1;
+  PColour colour = 2;
+}
