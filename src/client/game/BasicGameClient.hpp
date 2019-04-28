@@ -4,18 +4,18 @@
 #include "GameClientController.hpp"
 #include "../network/SocketClient.hpp"
 
-class BasicGameClient : public GameClientListener, public GameClientController {
+class BasicGameClient : public GameClientController {
 private:
     SocketClient& socket;
+    GameClientListener* externalListener;
 
 public:
     BasicGameClient(SocketClient& socket);
     virtual ~BasicGameClient();
 
-    // -----------------------------------
-    // GameClientListener Implementation
-    // -----------------------------------
-    void onUpdateCoins();
+    void setExternalListener(GameClientListener* listener);
+    void onPlayerAction(const PPlayerAction& action);
+    void onGameAction(const PGameAction& action);
 
     // -----------------------------------
     // GameClientController Implementation

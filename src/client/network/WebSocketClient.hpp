@@ -73,13 +73,6 @@ public:
     void on_message(websocketpp::connection_hdl, client::message_ptr msg) {
         proto::PContainer message;
         message.ParseFromString(msg->get_payload());
-        cout << "reçu " << msg->get_payload() << std::flush << endl;
-        if (msg->get_opcode() == websocketpp::frame::opcode::text) {
-            m_messages.push_back("<< " + msg->get_payload());
-        } else {
-            m_messages.push_back("<< " + websocketpp::utility::to_hex(msg->get_payload()));
-        }
-
         listener.onMessage(message);
     }
 
@@ -95,10 +88,6 @@ public:
         return m_status;
     }
 
-    void record_sent_message(std::string message) {
-        m_messages.push_back(">> " + message);
-    }
-
     friend std::ostream & operator<< (std::ostream & out, connection_metadata const & data);
 private:
     int m_id;
@@ -107,7 +96,6 @@ private:
     std::string m_uri;
     std::string m_server;
     std::string m_error_reason;
-    std::vector<std::string> m_messages;
     SocketClientListener& listener;
 };
 
@@ -236,8 +224,6 @@ public:
             std::cout << "> Error sending message: " << ec.message() << "\n";
             return;
         }
-
-        metadata_it->second->record_sent_message(message);
     }
 
     connection_metadata::ptr get_metadata(int id) const {

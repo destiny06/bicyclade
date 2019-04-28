@@ -3,23 +3,27 @@
 #include "LobbyClientListener.hpp"
 #include "LobbyClientController.hpp"
 #include "../network/SocketClient.hpp"
+#include "../../bom/Client.hpp"
 
-class BasicLobbyClient : public LobbyClientListener, public LobbyClientController {
+#include "../../generated/bicyclade.pb.h"
+
+#include <list>
+
+class BasicLobbyClient : public LobbyClientController {
 private:
     SocketClient& socket;
-    std::string *clientName;      // Once validated by the server, NULL otherwise.
+    std::string pendingRename;
+    Client *myself;     // Once validated by the server, NULL otherwise.
+    LobbyClientListener* externalListener;
+    std::list<Client> clients;
 
 public:
     BasicLobbyClient(SocketClient& socket);
     virtual ~BasicLobbyClient();
 
-    // -----------------------------------
-    // LobbyClientListener Implementation
-    // -----------------------------------
-    void onJoin();
-    void onQuit();
-    void onRename();
-    void onChat();
+    void setExternalListener(LobbyClientListener* listener);
+    void onClientAction(const PClientAction& action);
+    void onServerAction(const PServerAction& action);
 
     // -----------------------------------
     // LobbyClientController Implementation
@@ -28,4 +32,7 @@ public:
     void quit();
     void rename(std::string& name);
     void chat(std::string& message);
+
+private:
+    Client* retrieveClientFromName(const std::string& name);
 };

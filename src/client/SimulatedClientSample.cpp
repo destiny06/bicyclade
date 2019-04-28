@@ -4,7 +4,9 @@
 #include <iostream>
 
 int main() {
-    std::cout << "SimulatedClientSample\n";
+    std::cout << "-------------------------------\n";
+    std::cout << "---- SimulatedClientSample ----\n";
+    std::cout << "-------------------------------\n";
 
     ServerConnectionInfo info;
     info.host = "localhost";
@@ -26,7 +28,11 @@ int main() {
     }
 
     app->getLobbyController()->join();
-    std::cout << "ClientApplication -- Join Lobby\n";
+    std::cout << "ClientApplication -- Join lobby\n";
+
+    std::string pseudo = "Guest#1234";
+    app->getLobbyController()->rename(pseudo);
+    std::cout << "ClientApplication -- Chose name\n";
 
     app->stop();
     std::cout << "ClientApplication -- Stopped\n";

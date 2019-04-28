@@ -32,10 +32,10 @@ all: system-check old-client console-client test-client server
 old-client: generated/common.pb.o generated/gameactions.pb.o generated/clientactions.pb.o generated/playeractions.pb.o generated/serveractions.pb.o generated/bicyclade.pb.o client/echo_client.o
 	$(CXX) $^ $(LDFLAGS) -o client/old-client
 
-console-client: generated/common.pb.o generated/gameactions.pb.o generated/clientactions.pb.o generated/playeractions.pb.o generated/serveractions.pb.o generated/bicyclade.pb.o client/network/MockUpSocketClient.o client/network/WebSocketClient.o client/application/BasicClientApplication.o client/lobby/BasicLobbyClient.o client/game/BasicGameClient.o client/CommandLineClient.o
+console-client: generated/common.pb.o generated/gameactions.pb.o generated/clientactions.pb.o generated/playeractions.pb.o generated/serveractions.pb.o generated/bicyclade.pb.o bom/Client.o client/network/MockUpSocketClient.o client/network/WebSocketClient.o client/application/BasicClientApplication.o client/lobby/BasicLobbyClient.o client/game/BasicGameClient.o client/CommandLineClient.o
 	$(CXX) $^ $(LDFLAGS) -o client/console-client
 
-test-client: generated/common.pb.o generated/gameactions.pb.o generated/clientactions.pb.o generated/playeractions.pb.o generated/serveractions.pb.o generated/bicyclade.pb.o client/network/MockUpSocketClient.o client/network/WebSocketClient.o client/application/BasicClientApplication.o client/lobby/BasicLobbyClient.o client/game/BasicGameClient.o client/SimulatedClientSample.o
+test-client: generated/common.pb.o generated/gameactions.pb.o generated/clientactions.pb.o generated/playeractions.pb.o generated/serveractions.pb.o generated/bicyclade.pb.o bom/Client.o client/network/MockUpSocketClient.o client/network/WebSocketClient.o client/application/BasicClientApplication.o client/lobby/BasicLobbyClient.o client/game/BasicGameClient.o client/SimulatedClientSample.o
 	$(CXX) $^ $(LDFLAGS) -o client/test-client
 
 server: generated/common.pb.o generated/gameactions.pb.o generated/clientactions.pb.o generated/playeractions.pb.o generated/serveractions.pb.o generated/bicyclade.pb.o server/WebsocketServer.o bom/Client.o bom/Player.o server/Server.o server/main.o

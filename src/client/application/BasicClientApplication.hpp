@@ -10,6 +10,9 @@ private:
     SocketClient* socket; /* Owner of the socket, must free it */
     BasicLobbyClient* lobby;
     BasicGameClient* game;
+    SocketClientListener* externalSocketListener; /* For debug & tests purpose only */
+    LobbyClientListener* externalLobbyListener;
+    GameClientListener* externalGameListener;
 
 public:
     BasicClientApplication();
@@ -27,6 +30,9 @@ public:
     void stop();
     LobbyClientController* getLobbyController();
     GameClientController* getGameController();
+    void setExternalSocketListener(SocketClientListener* listener);
+    void setExternalLobbyListener(LobbyClientListener* listener);
+    void setExternalGameListener(GameClientListener* listener);
 
     // -----------------------------------
     // SocketClientListener Implementation

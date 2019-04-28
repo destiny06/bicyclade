@@ -24,7 +24,7 @@ WebSocketClient::~WebSocketClient(){
 // -----------------------------------
 void WebSocketClient::connect(){
     std::string uri = "ws://" + info.host + ":" + info.port;
-    std::cout << "WebSocket -- Trying to connect to "<< uri <<"\n";
+    std::cout << "[WebSocket-Logger]: Trying to connect to "<< uri <<"\n";
     socketID = endpoint.connect(uri);
 }
 
@@ -37,9 +37,9 @@ void WebSocketClient::send(proto::PContainer& message){
     bool b = message.SerializeToString(&s);
 
 
-    std::cout << "WebSocket -- Sending message: [";
+    std::cout << "[WebSocket-Logger]: Sending message: [";
     for(int i=0; i<s.size(); i++){
-        std::cout << (int) s[i] << " - ";
+        std::cout << (int) s[i] << "-";
     }
     std::cout << "], size( "<< s.size() << ")\n";
 
