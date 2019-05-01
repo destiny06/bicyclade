@@ -1,5 +1,8 @@
 #pragma once
 
+/**
+ * Events from the game, see ClientApplication design.
+ */
 class GameClientListener {
 public:
     GameClientListener(){}

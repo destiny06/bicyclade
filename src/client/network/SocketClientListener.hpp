@@ -2,6 +2,9 @@
 
 #include "../../generated/bicyclade.pb.h"
 
+/**
+ * Listener for SocketClient callbacks, see SocketClient design.
+ */
 class SocketClientListener {
 public:
     SocketClientListener(){}

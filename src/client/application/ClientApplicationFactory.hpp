@@ -6,10 +6,16 @@
 #include "../network/MockUpSocketClient.hpp"
 #include "../network/WebSocketClient.hpp"
 
+/**
+ * Factory for ClientApplication implementations
+ */
 class ClientApplicationFactory {
 public:
     /**
-     * **Warning:** The creator will be the owner of the application and must free it.
+     * Implementation using Websocket as a way to interact with the server.
+     *
+     * @return **Warning:** The creator will be the owner of the application and
+     *  must free it.
      */
     static ClientApplication* CreateWithWebSocket(ServerConnectionInfo& info){
         BasicClientApplication *app = new BasicClientApplication();
@@ -19,7 +25,11 @@ public:
     }
 
     /**
-     * **Warning:** The creator will be the owner of the application and must free it.
+     * Implementation with a mock-up on the socket that does not connect to
+     *  any actual server. Can be useful for test purpose and debugging.
+     *
+     * @return **Warning:** The creator will be the owner of the application and
+     *  must free it.
      */
     static ClientApplication* CreateWithMockUpSocket(ServerConnectionInfo& info){
         BasicClientApplication *app = new BasicClientApplication();

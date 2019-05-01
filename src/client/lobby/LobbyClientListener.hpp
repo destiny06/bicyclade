@@ -2,6 +2,9 @@
 
 #include "../../bom/Client.hpp"
 
+/**
+ * Events from the lobby, see ClientApplication design.
+ */
 class LobbyClientListener {
 public:
 	LobbyClientListener(){}

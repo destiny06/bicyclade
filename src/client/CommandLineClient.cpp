@@ -3,6 +3,21 @@
 
 #include <iostream>
 
+/**
+ * CommandLineClient is a program that run a client on which you can directly
+ * interact with the console using commands.
+ *
+ * Command List:
+ * - start: Start the client
+ * - stop: Stop the client
+ * - join: Join the game
+ * - quit: Quit the game
+ * - name <new_name>: Change in-game pseudo
+ * - chat <msg>: Send a message to everyone
+ * - help: Display this help text
+ * - exit: Exit the program
+ */
+
 class SocketEventsLogger : public SocketClientListener {
 public:
     SocketEventsLogger(){
@@ -71,11 +86,11 @@ int main() {
     info.host = "localhost";
     info.port = "9002";
 
-    SocketEventsLogger *socketLogger = new SocketEventsLogger();
-    LobbyEventsLogger *lobbyLogger = new LobbyEventsLogger();
+    SocketEventsLogger socketLogger;
+    LobbyEventsLogger lobbyLogger;
     ClientApplication *app = ClientApplicationFactory::CreateWithWebSocket(info);
-    app->setExternalSocketListener(socketLogger);
-    app->setExternalLobbyListener(lobbyLogger);
+    app->setExternalSocketListener(&socketLogger);
+    app->setExternalLobbyListener(&lobbyLogger);
     bool done = false;
     std::string input;
 
@@ -146,9 +161,7 @@ int main() {
         }
     }
 
-    delete app;
-    delete lobbyLogger;
-    delete socketLogger;
+    delete app; // Free the app before leaving
 
     return 0;
 }

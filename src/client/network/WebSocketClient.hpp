@@ -22,9 +22,13 @@ using namespace std;
 
 typedef websocketpp::client<websocketpp::config::asio_client> client;
 
+/**
+ * WebScoektClient
+ * Ugly implementation of Websocket communication
+ * TODO: This class need to be cleaned properly
+ * TODO: Do we really need to keep to multi-connection option ?
+ */
 
-
-// IMPLEM - TODO
 class connection_metadata {
 public:
     typedef websocketpp::lib::shared_ptr<connection_metadata> ptr;

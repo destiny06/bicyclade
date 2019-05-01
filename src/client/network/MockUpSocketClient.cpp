@@ -25,4 +25,5 @@ void MockUpSocketClient::disconnect(){
 
 void MockUpSocketClient::send(proto::PContainer& message){
     std::cout << "MockUpSocketClient::send()\n";
+    listener.onMessage(message);
 }

@@ -5,6 +5,16 @@
 #include "../network/SocketClient.hpp"
 #include "../lobby/BasicLobbyClient.hpp"
 
+/**
+ * Implementation of ClientApplication
+ *
+ * This class is the direct implementation of the communication protocol
+ * between the server and the client relative to game interactions.
+ *
+ * This communication is done through Protocol Buffer object PContainer
+ *
+ * Specifications of the protocol is documented in the Bicyclades wiki.
+ */
 class BasicClientApplication : public ClientApplication, public SocketClientListener {
 private:
     SocketClient* socket; /* Owner of the socket, must free it */
@@ -19,7 +29,8 @@ public:
     virtual ~BasicClientApplication();
 
     /**
-     * **Warning:** The application will take the ownership of the socket.
+     * @param socket: **Warning:** The application will take the ownership of
+     * the socket and will free it when needed.
      */
     void setSocket(SocketClient* socket);
 
@@ -37,6 +48,13 @@ public:
     // -----------------------------------
     // SocketClientListener Implementation
     // -----------------------------------
+    /**
+     * The following functions are socket listeners and will be called
+     * in a dedicated thread of the socket. Therefore, the socket need to
+     * be instantiated and running in order to call those listeners
+     * callback functions. Thus, it is not their purpose to allocate or
+     * free the socket. This will be done in the start/stop functions.
+     */
     void onOpen();
     void onClose();
     void onMessage(proto::PContainer& message);

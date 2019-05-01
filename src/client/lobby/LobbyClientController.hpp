@@ -2,6 +2,9 @@
 
 #include <string>
 
+/**
+ * Interactions with the lobby, see ClientApplication design.
+ */
 class LobbyClientController {
 public:
     LobbyClientController(){}

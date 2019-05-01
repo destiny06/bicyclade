@@ -3,10 +3,15 @@
 
 #include <iostream>
 
+/**
+ * This class is a sample to demonstrate how to simulate a sequence of
+ * actions on a client.
+ * Simulating a sequence of actions is useful for automatic tests.
+ */
 int main() {
-    std::cout << "-------------------------------\n";
-    std::cout << "---- SimulatedClientSample ----\n";
-    std::cout << "-------------------------------\n";
+    std::cout << "---------------------------------\n";
+    std::cout << "---- Simulated Client Sample ----\n";
+    std::cout << "---------------------------------\n";
 
     ServerConnectionInfo info;
     info.host = "localhost";

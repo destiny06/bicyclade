@@ -9,6 +9,18 @@
 
 #include <list>
 
+/**
+ * Implementation of LobbyClientController used by BasicClientApplication
+ *
+ * This class is the direct implementation of the communication protocol
+ * between the server and the client relative to lobby interactions.
+ *
+ * This communication is done through Protocol Buffer objects:
+ * - PClientAction (lobby action initiated by a client)
+ * - PServerAction (lobby action from the server)
+ *
+ * Specifications of the protocol is documented in the Bicyclades wiki.
+ */
 class BasicLobbyClient : public LobbyClientController {
 private:
     SocketClient& socket;

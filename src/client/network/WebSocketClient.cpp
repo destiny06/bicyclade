@@ -11,8 +11,6 @@ WebSocketClient::WebSocketClient(ServerConnectionInfo& i, SocketClientListener& 
       endpoint(l),
       socketID(-1)
 {
-    // TODO du coup le LISTENER est directement transmis ?
-    // TODO delete la notion de multi-connection et de socketID ?!
 }
 
 WebSocketClient::~WebSocketClient(){

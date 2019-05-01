@@ -88,7 +88,6 @@ void BasicClientApplication::onOpen(){
 void BasicClientApplication::onClose(){
     delete lobby;
     lobby = NULL;
-    // **Warning:** this thread can't delete socket because it will be run in a socket working thread...
 
     // Forward to external listener if any
     if(externalSocketListener != NULL){
