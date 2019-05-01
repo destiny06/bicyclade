@@ -95,7 +95,7 @@ void BasicClientApplication::onClose(){
     }
 }
 
-void BasicClientApplication::onMessage(proto::PContainer& message){
+void BasicClientApplication::onMessage(const proto::PContainer& message){
     switch (message.global_action())
     {
     /* --- Lobby Messages --- */

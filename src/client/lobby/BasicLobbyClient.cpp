@@ -9,8 +9,9 @@ BasicLobbyClient::BasicLobbyClient(SocketClient& s)
       myself(NULL),
       externalListener(NULL) {
 
-    /* TODO: Workaround waiting for JOIN_GAME implementation */
-    clients.push_back(Client(0,"Nobody"));
+    /* TODO: Workaround */
+    myself = new Client(0,"");
+    clients.push_back(myself);
 }
 
 BasicLobbyClient::~BasicLobbyClient(){
@@ -21,16 +22,22 @@ void BasicLobbyClient::setExternalListener(LobbyClientListener* listener){
     externalListener = listener;
 }
 
+/* TODO redesign the handling of the clients once new version from the server */
 void BasicLobbyClient::onClientAction(const PClientAction& action){
     switch(action.type())
     {
     case PClientActionType::JOIN_GAME:
         {
-            /* TODO: Workaround waiting for JOIN_GAME implementation */
-            Client *client = retrieveClientFromName("Nobody");
-            if(client == NULL){
-                std::cout << "Error: could not find any client with this name.\n";
-                break;
+            /* TODO Basically we can only know players that are joining after we were connected
+             * thus we won't know all the potential clients until the game start*/
+
+            /* TODO check that our join worked (similar to add name technic ?)*/
+
+            Client *client = retrieveClientFromName(action.name());
+
+            if (client == nullptr) {
+                client = new Client(0, action.name());
+                clients.push_back(client); /* TODO: Implement ID */
             }
 
             // Forward to external listener if any
@@ -41,32 +48,32 @@ void BasicLobbyClient::onClientAction(const PClientAction& action){
         break;
     case PClientActionType::ADD_NAME:
         {
-            /* TODO: Workaround, should be in JOIN_GAME */
-            clients.push_back(Client(0, action.name())); /* TODO: Implement ID */
-            Client *client = retrieveClientFromName(action.name());
-            if(client == NULL){
-                std::cout << "Error: could not find any client with this name.\n";
-                break;
+            std::string oldName = "";
+            // If there is a pending rename, update myself variable
+            if(pendingRename == action.name()){
+                oldName = myself->name;
+                myself->name = action.name();
+                pendingRename = ""; /* TODO: could break with empty client name. Must be forbidden. */
+            } else {
+                /* TODO error case */
             }
 
-            // If there is a pending rename, update myself variable
-            if(pendingRename == client->name){
-                myself = client;
-                pendingRename = ""; /* TODO: could break with empty client name. Must be forbidden. */
-            }
+            //Just to send a client to the listener
+            Client c(0,action.name());
 
             // Forward to external listener if any
             if(externalListener != NULL){
-                externalListener->onRename(*client, "Not Implemented Yet"); /* TODO: Workaround */
+                externalListener->onRename(c, oldName); /* TODO: Workaround */
             }
         }
         break;
     case PClientActionType::CHAT:
         {
             Client *client = retrieveClientFromName(action.name());
-            if(client == NULL){
-                std::cout << "Error: could not find any client with this name.\n";
-                break;
+
+            if (client == nullptr) {
+                client = new Client(0, action.name());
+                clients.push_back(client); /* TODO: Implement ID */
             }
 
             // Forward to external listener if any
@@ -79,9 +86,11 @@ void BasicLobbyClient::onClientAction(const PClientAction& action){
         {
             Client *client = retrieveClientFromName(action.name());
 
-            if(client == NULL){
-                std::cout << "Error: could not find any client with this name.\n";
-                break;
+            if (client == nullptr) {
+                Client c(0,action.name());
+                client = &c;
+            } else {
+                /* TODO remove the client from the list if we have it and free the pointer */
             }
 
             // Forward to external listener if any
@@ -102,12 +111,17 @@ void BasicLobbyClient::onServerAction(const PServerAction& action){
 
 
 Client* BasicLobbyClient::retrieveClientFromName(const std::string& name){
-    for(std::list<Client>::iterator it = clients.begin(); it != clients.end(); it++){
-        if(it->name == name){
-            return &(*it);
-        }
+
+    std::list<Client*>::iterator it = std::find_if(
+    clients.begin(),
+    clients.end(),
+            [name](const Client* c) {return c->name == name; });
+
+    if (it != clients.end()) {
+        return *it;
+    } else {
+        return NULL;
     }
-    return NULL;
 }
 
 // -----------------------------------

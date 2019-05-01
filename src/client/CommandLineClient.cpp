@@ -36,7 +36,7 @@ public:
         std::cout << "[Socket-Logger]: Connection closed\n";
     }
 
-    void onMessage(proto::PContainer& message){
+    void onMessage(const proto::PContainer& message){
         std::string s;
         message.SerializeToString(&s);
 
@@ -64,19 +64,19 @@ public:
     // -----------------------------------
     // LobbyClientListener Implementation
     // -----------------------------------
-    void onJoin(Client& client){
+    void onJoin(const Client& client){
         std::cout << "[Lobby]: <" << client.name << "> joined the room.\n";
     }
 
-    void onQuit(Client& client){
+    void onQuit(const Client& client){
         std::cout << "[Lobby]: <" << client.name << "> left the room. \n";
     }
 
-    void onRename(Client& client, std::string newName){
-        std::cout << "[Lobby]: <" << client.name << "> is now know as <" << newName << ">. \n";
+    void onRename(const Client& client, const std::string oldName){
+        std::cout << "[Lobby]: <" << oldName << "> is now known as <" << client.name << ">. \n";
     }
 
-    void onChat(Client& client, std::string message){
+    void onChat(const Client& client, const std::string message){
         std::cout << "[Lobby]: [" << client.name << "]: " << message << "\n";
     }
 };

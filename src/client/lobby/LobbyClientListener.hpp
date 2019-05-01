@@ -10,8 +10,8 @@ public:
 	LobbyClientListener(){}
 	virtual ~LobbyClientListener(){}
 
-	virtual void onJoin(Client& client) = 0;
-	virtual void onQuit(Client& client) = 0;
-	virtual void onRename(Client& client, std::string newName) = 0;
-	virtual void onChat(Client& client, std::string message) = 0;
+	virtual void onJoin(const Client& client) = 0;
+	virtual void onQuit(const Client& client) = 0;
+	virtual void onRename(const Client& client, const std::string oldName) = 0;
+	virtual void onChat(const Client& client, const std::string message) = 0;
 };

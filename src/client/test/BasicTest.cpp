@@ -1,7 +1,9 @@
-#include "application/ClientApplication.hpp"
-#include "application/ClientApplicationFactory.hpp"
+#include "../application/ClientApplication.hpp"
+#include "ressources/ClientApplicationFactory.hpp"
 
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 /**
  * This class is a sample to demonstrate how to simulate a sequence of
@@ -26,7 +28,7 @@ int main() {
     while(app->getLobbyController() == NULL){
         retry--;
         std::cout << "ClientApplication -- Waiting...("<< retry <<")\n";
-        sleep(1);
+        std::this_thread::sleep_for(std::chrono::seconds(1));
         if(retry == 0){
             break;
         }
@@ -46,7 +48,7 @@ int main() {
     while(app->getLobbyController() != NULL){
         retry--;
         std::cout << "ClientApplication -- Waiting...("<< retry <<")\n";
-        sleep(1);
+        std::this_thread::sleep_for(std::chrono::seconds(1));
         if(retry == 0){
             break;
         }

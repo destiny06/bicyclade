@@ -1,5 +1,4 @@
 #include "MockUpSocketClient.hpp"
-#include "SocketClient.hpp"
 
 #include <iostream>
 
@@ -23,7 +22,7 @@ void MockUpSocketClient::disconnect(){
     std::cout << "MockUpSocketClient::disconnect()\n";
 }
 
-void MockUpSocketClient::send(proto::PContainer& message){
+void MockUpSocketClient::send(const proto::PContainer& message){
     std::cout << "MockUpSocketClient::send()\n";
     listener.onMessage(message);
 }

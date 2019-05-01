@@ -25,8 +25,8 @@ typedef websocketpp::client<websocketpp::config::asio_client> client;
 /**
  * WebScoektClient
  * Ugly implementation of Websocket communication
- * TODO: This class need to be cleaned properly
- * TODO: Do we really need to keep to multi-connection option ?
+ * TODO: This class needs to be cleaned properly (rename variables etc)
+ * TODO: Remove multi-connection handling
  */
 
 class connection_metadata {
@@ -250,14 +250,6 @@ private:
     SocketClientListener& listener;
 };
 
-
-
-
-
-
-
-
-
 class WebSocketClient : public SocketClient {
 private:
     websocket_endpoint endpoint;
@@ -272,5 +264,5 @@ public:
     // -----------------------------------
     void connect();
     void disconnect();
-    void send(proto::PContainer& message);
+    void send(const proto::PContainer& message);
 };

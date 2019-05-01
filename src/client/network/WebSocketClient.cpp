@@ -30,17 +30,15 @@ void WebSocketClient::disconnect(){
     endpoint.close(socketID, websocketpp::close::status::normal, "Bye");
 }
 
-void WebSocketClient::send(proto::PContainer& message){
+void WebSocketClient::send(const proto::PContainer& message){
     string s;
     bool b = message.SerializeToString(&s);
 
-
     std::cout << "[WebSocket-Logger]: Sending message: [";
-    for(int i=0; i<s.size(); i++){
+    for(int i=0; i<s.size()-1; i++){
         std::cout << (int) s[i] << "-";
     }
-    std::cout << "], size( "<< s.size() << ")\n";
-
+    std::cout << (int) s[s.size()-1] << "], size( "<< s.size() << ")\n";
 
     endpoint.send(socketID, s);
 }

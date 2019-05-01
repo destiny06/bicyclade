@@ -55,6 +55,6 @@ public:
      */
     void onOpen();
     void onClose();
-    void onMessage(proto::PContainer& message);
+    void onMessage(const proto::PContainer& message);
     void onFail();
 };

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "SocketClient.hpp"
-#include "ServerConnectionInfo.hpp"
-#include "SocketClientListener.hpp"
+#include "../../network/SocketClient.hpp"
+#include "../../network/ServerConnectionInfo.hpp"
+#include "../../network/SocketClientListener.hpp"
 
-#include "../../generated/bicyclade.pb.h"
+#include "../../../generated/bicyclade.pb.h"
 
 /**
  * Mock-up on the socket that does not connect to any actual server. Any
@@ -23,5 +23,5 @@ public:
     // -----------------------------------
     void connect();
     void disconnect();
-    void send(proto::PContainer& message);
+    void send(const proto::PContainer& message);
 };

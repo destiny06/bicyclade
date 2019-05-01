@@ -27,7 +27,7 @@ private:
     std::string pendingRename;
     Client *myself;     // Once validated by the server, NULL otherwise.
     LobbyClientListener* externalListener;
-    std::list<Client> clients;
+    std::list<Client*> clients;
 
 public:
     BasicLobbyClient(SocketClient& socket);

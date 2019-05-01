@@ -26,5 +26,5 @@ public:
 
     virtual void connect() = 0;
     virtual void disconnect() = 0;
-    virtual void send(proto::PContainer& message) = 0;
+    virtual void send(const proto::PContainer& message) = 0;
 };
