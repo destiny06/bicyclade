@@ -26,10 +26,10 @@
  * that are not described here are only implementation details.
  *
  * - LobbyClientListener and GameClientListener are two listeners of events
- * happening when the ClientApplication is running. Their implementations are
- * are the responsibility of the program using the ClientApplication.
- * For instance, they can be used to trigger some callback on a GUI when some
- * game events happen.
+ * happening when the ClientApplication is running. Their implementation is the
+ * responsibility of the program using the ClientApplication.
+ * For instance, those listeners can be used to trigger some callback on a GUI
+ * when some game events happen.
  * It is important to note that both listeners are optional here. A
  * ClientApplication can run without any external listeners.
  *

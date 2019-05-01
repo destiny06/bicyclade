@@ -9,9 +9,7 @@
  * Implementation of ClientApplication
  *
  * This class is the direct implementation of the communication protocol
- * between the server and the client relative to game interactions.
- *
- * This communication is done through Protocol Buffer object PContainer
+ * between the server and the client through Protocol Buffer object PContainer.
  *
  * Specifications of the protocol is documented in the Bicyclades wiki.
  */
