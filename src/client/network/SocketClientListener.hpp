@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../generated/bicyclade.pb.h"
+#include "bicyclade.pb.h"
 
 /**
  * Listener for SocketClient callbacks, see SocketClient design.

@@ -1,14 +1,13 @@
 #pragma once
 
 #include <string>
-using namespace std;
 
 class Client {
 public:
 
-    string name;
+    std::string name;
     int id;
     Client(int id);
-    Client(int id, string name);
+    Client(int id, std::string name);
 	Client() = default;
 };

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../application/BasicClientApplication.hpp"
-#include "../../network/ServerConnectionInfo.hpp"
+#include "client/application/BasicClientApplication.hpp"
+#include "client/network/ServerConnectionInfo.hpp"
 #include "MockUpSocketClient.hpp"
 
 /**

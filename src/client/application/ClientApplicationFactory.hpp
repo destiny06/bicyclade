@@ -2,8 +2,8 @@
 
 #include "ClientApplication.hpp"
 #include "BasicClientApplication.hpp"
-#include "../network/ServerConnectionInfo.hpp"
-#include "../network/WebSocketClient.hpp"
+#include "client/network/ServerConnectionInfo.hpp"
+#include "client/network/WebSocketClient.hpp"
 
 /**
  * Factory for ClientApplication implementations

@@ -1,10 +1,11 @@
 #include "BasicGameClient.hpp"
 
+using namespace proto;
+
 BasicGameClient::BasicGameClient(SocketClient& s)
     : GameClientController(),
       socket(s),
       externalListener(NULL) {
-
 }
 
 BasicGameClient::~BasicGameClient(){

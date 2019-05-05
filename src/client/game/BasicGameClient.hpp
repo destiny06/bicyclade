@@ -2,7 +2,9 @@
 
 #include "GameClientListener.hpp"
 #include "GameClientController.hpp"
-#include "../network/SocketClient.hpp"
+#include "client/network/SocketClient.hpp"
+#include "playeractions.pb.h"
+#include "gameactions.pb.h"
 
 /**
  * Implementation of GameClientController used by BasicClientApplication
@@ -26,8 +28,8 @@ public:
     virtual ~BasicGameClient();
 
     void setExternalListener(GameClientListener* listener);
-    void onPlayerAction(const PPlayerAction& action);
-    void onGameAction(const PGameAction& action);
+    void onPlayerAction(const proto::PPlayerAction& action);
+    void onGameAction(const proto::PGameAction& action);
 
     // -----------------------------------
     // GameClientController Implementation

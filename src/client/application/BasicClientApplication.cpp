@@ -1,9 +1,11 @@
 #include "BasicClientApplication.hpp"
 
-#include "../../generated/bicyclade.pb.h"
+#include "bicyclade.pb.h"
 
 #include <iostream>
 #include <string>
+
+using namespace std;
 
 BasicClientApplication::BasicClientApplication()
     : ClientApplication(),
@@ -103,14 +105,14 @@ void BasicClientApplication::onMessage(const proto::PContainer& message){
         if(lobby != NULL){
             lobby->onClientAction(message.client_action());
         } else {
-            std::cout << "Error: receiving a ClientAction message while no lobby is instantiate to manage it.\n";
+            cout << "Error: receiving a ClientAction message while no lobby is instantiate to manage it.\n";
         }
         break;
     case proto::PGlobalActionType::SERVER_ACTION:
         if(lobby != NULL){
             lobby->onServerAction(message.server_action());
         } else {
-            std::cout << "Error: receiving a ServerAction message while no lobby is instantiate to manage it.\n";
+            cout << "Error: receiving a ServerAction message while no lobby is instantiate to manage it.\n";
         }
         break;
 
@@ -119,18 +121,18 @@ void BasicClientApplication::onMessage(const proto::PContainer& message){
         if(game != NULL){
             game->onPlayerAction(message.player_action());
         } else {
-            std::cout << "Error: receiving a PlayerAction message while no game is instantiate to manage it.\n";
+            cout << "Error: receiving a PlayerAction message while no game is instantiate to manage it.\n";
         }
         break;
     case proto::PGlobalActionType::GAME_ACTION:
         if(game != NULL){
             game->onGameAction(message.game_action());
         } else {
-            std::cout << "Error: receiving a GameAction message while no game is instantiate to manage it.\n";
+            cout << "Error: receiving a GameAction message while no game is instantiate to manage it.\n";
         }
         break;
     default:
-        std::cout << "Error, unknown type (PGlobalActionType).\n"; // Message is discarded
+        cout << "Error, unknown type (PGlobalActionType).\n"; // Message is discarded
         break;
     }
 

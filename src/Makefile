@@ -17,8 +17,9 @@
 HOST_SYSTEM = $(shell uname | cut -f 1 -d_)
 SYSTEM ?= $(HOST_SYSTEM)
 CXX = g++
-CXXFLAGS += -std=c++11
+CXXFLAGS += -std=c++11 -I$(GENERATED_PATH) -I$(CURDIR)
 CPPFLAGS += `pkg-config --cflags protobuf`
+GENERATED_PATH += $(CURDIR)/generated
 
 LDFLAGS += `pkg-config --libs protobuf` -lboost_system -lpthread -D_WEBSOCKETPP_CPP11_STL_
 PROTOC = protoc
@@ -35,7 +36,7 @@ console-client: generated/common.pb.o generated/gameactions.pb.o generated/clien
 test-client: generated/common.pb.o generated/gameactions.pb.o generated/clientactions.pb.o generated/playeractions.pb.o generated/serveractions.pb.o generated/bicyclade.pb.o bom/Client.o client/network/WebSocketClient.o client/application/BasicClientApplication.o client/lobby/BasicLobbyClient.o client/game/BasicGameClient.o client/test/ressources/MockUpSocketClient.o client/test/BasicTest.o
 	$(CXX) $^ $(LDFLAGS) -o client/test/basic
 
-server: generated/common.pb.o generated/gameactions.pb.o generated/clientactions.pb.o generated/playeractions.pb.o generated/serveractions.pb.o generated/bicyclade.pb.o server/WebsocketServer.o bom/Client.o bom/Player.o server/Server.o server/main.o
+server: generated/common.pb.o generated/gameactions.pb.o generated/clientactions.pb.o generated/playeractions.pb.o generated/serveractions.pb.o generated/bicyclade.pb.o common/adapter/CppToProto.o server/network/WebsocketServer.o bom/Client.o bom/Player.o server/lobby/LobbyController.o server/game/GameController.o server/Server.o server/main.o
 	$(CXX) $^ $(LDFLAGS) -o server/server
 
 .PRECIOUS: generated/%.pb.cc

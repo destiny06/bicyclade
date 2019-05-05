@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../bom/Client.hpp"
+#include "bom/Client.hpp"
 
 /**
  * Events from the lobby, see ClientApplication design.
