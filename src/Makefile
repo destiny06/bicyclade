@@ -29,10 +29,10 @@ vpath %.proto $(PROTOS_PATH)
 
 all: system-check client/client server
 
-client/client: generated/bicyclade.pb.o client/echo_client.o
+client/client: generated/common.pb.o generated/gameactions.pb.o generated/clientactions.pb.o generated/playeractions.pb.o generated/serveractions.pb.o generated/bicyclade.pb.o client/echo_client.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
-server: generated/bicyclade.pb.o server/websocket.o bom/Client.o server/Server.o server/main.o
+server: generated/common.pb.o generated/gameactions.pb.o generated/clientactions.pb.o generated/playeractions.pb.o generated/serveractions.pb.o generated/bicyclade.pb.o server/WebsocketServer.o bom/Client.o bom/Player.o server/Server.o server/main.o
 	$(CXX) $^ $(LDFLAGS) -o server/server
 
 .PRECIOUS: generated/%.pb.cc

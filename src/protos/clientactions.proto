@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+message PAction_CHAT {
+   string message = 2;
+}
+
+enum PClientActionType {
+  JOIN_GAME = 0; // no dedicated message
+  QUIT_GAME = 1; // no dedicated message
+  ADD_NAME = 2; // no dedicated message, field name is used
+  CHAT = 3; // dedicated message PAction_CHAT
+}
+
+message PClientAction {
+  PClientActionType type = 1;
+  string name = 2;
+  PAction_CHAT action_chat = 3;
+}
