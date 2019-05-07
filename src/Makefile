@@ -27,10 +27,13 @@ PROTOS_PATH = ./protos
 
 vpath %.proto $(PROTOS_PATH)
 
-all: system-check client/client server
+all: system-check console-client test-client server
 
-client/client: generated/common.pb.o generated/gameactions.pb.o generated/clientactions.pb.o generated/playeractions.pb.o generated/serveractions.pb.o generated/bicyclade.pb.o client/echo_client.o
-	$(CXX) $^ $(LDFLAGS) -o $@
+console-client: generated/common.pb.o generated/gameactions.pb.o generated/clientactions.pb.o generated/playeractions.pb.o generated/serveractions.pb.o generated/bicyclade.pb.o bom/Client.o client/network/WebSocketClient.o client/application/BasicClientApplication.o client/lobby/BasicLobbyClient.o client/game/BasicGameClient.o client/CommandLineClient.o
+	$(CXX) $^ $(LDFLAGS) -o client/console-client
+
+test-client: generated/common.pb.o generated/gameactions.pb.o generated/clientactions.pb.o generated/playeractions.pb.o generated/serveractions.pb.o generated/bicyclade.pb.o bom/Client.o client/network/WebSocketClient.o client/application/BasicClientApplication.o client/lobby/BasicLobbyClient.o client/game/BasicGameClient.o client/test/ressources/MockUpSocketClient.o client/test/BasicTest.o
+	$(CXX) $^ $(LDFLAGS) -o client/test/basic
 
 server: generated/common.pb.o generated/gameactions.pb.o generated/clientactions.pb.o generated/playeractions.pb.o generated/serveractions.pb.o generated/bicyclade.pb.o server/WebsocketServer.o bom/Client.o bom/Player.o server/Server.o server/main.o
 	$(CXX) $^ $(LDFLAGS) -o server/server
@@ -40,7 +43,7 @@ generated/%.pb.cc: %.proto
 	$(PROTOC) -I $(PROTOS_PATH) --cpp_out=./generated $<
 
 clean:
-	rm -f generated/* server/*.o client/*o bom/*.o lient/client server/server
+	rm -f generated/* server/*.o client/*o client/*/*o client/*/*/*o bom/*.o client/old-client client/console-client client/test-client server/server
 
 
 # The following is to test your system and ensure a smoother experience.

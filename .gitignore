@@ -32,6 +32,8 @@
 *.app
 
 src/server/server
-src/client/client
+src/client/old-client
+src/client/console-client
+src/client/test-client
 src/generated/*.h
 src/generated/*.cc
