@@ -1,9 +1,13 @@
 #include "Server.hpp"
 
-#include "../generated/bicyclade.pb.h"
-#include "../common/Util.hpp"
+#include "bicyclade.pb.h"
+#include "serveractions.pb.h"
+#include "common.pb.h"
+#include "common/Util.hpp"
+#include "common/adapter/CppToProto.hpp"
 
 using namespace proto;
+using namespace std;
 
 void Server::start() {
     nextId = 0;
@@ -13,21 +17,17 @@ void Server::start() {
         process_messages();
         s.join();
     } catch (websocketpp::exception const & e) {
-        std::cout << e.what() << std::endl;
+        cout << e.what() << endl;
     }
 
 }
 
 int Server::create_client() {
-    Client* c = new Client(nextId++);
-    clientsMap.insert(std::make_pair(c->id,c));
-    return c->id;
+    return lobby.create_client();
 }
 
 void Server::remove_client(int id) {
-    clientMapType::iterator itr = clientsMap.find(id);
-    delete itr->second;
-    clientsMap.erase(itr);
+    return lobby.remove_client(id);
 }
 
 void Server::process_messages() {
@@ -40,25 +40,42 @@ void Server::process_messages() {
         }
 
         ClientAction a = actionsQueue.front();
-        clientMapType::iterator itr = clientsMap.find(a.first);
-        Client* c = itr->second;
-        switch (a.second.client_action().type())
-		{
-        case ADD_NAME:
-        	c->name = a.second.client_action().name();
-        	socketServer.send(a.first,a.second);
-        	break;
-        case CHAT:
-            socketServer.broadcast(a.second);
-        	break;
-        case JOIN_GAME:
-            //TODO
-        	break;
-        default:
-        	break;
+
+        switch (a.second.global_action())
+        {
+        case CLIENT_ACTION:
+            switch (a.second.client_action().type())
+            {
+            case ADD_NAME:
+                lobby.onAddName(a);
+                socketServer.send(a.first,a.second);
+                break;
+            case CHAT:
+                socketServer.broadcast(a.second);
+                break;
+            case JOIN_GAME:
+                lobby.onJoinGame(a);
+                {
+                    if (lobby.getPlayers()->size() == 3) {
+                        game.startGame(lobby.getPlayers());
+                        PContainer c = CppToProto().buildStartGame(lobby.getPlayers());
+						socketServer.broadcast(c);
+                    }
+                    socketServer.send(a.first,a.second);
+                }
+                break;
+            default:
+                break;
+            }
+            break;
+            case PLAYER_ACTION:
+                /* TODO call game controller */
+                break;
+            default:
+                break;
         }
+
         actionsQueue.pop();
         lock.unlock();
-
     }
 }

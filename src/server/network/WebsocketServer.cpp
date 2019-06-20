@@ -1,6 +1,6 @@
 #include "WebsocketServer.hpp"
 
-#include "../server/Server.hpp"
+#include "server/Server.hpp"
 
 typedef websocketpp::server<websocketpp::config::asio> server;
 
@@ -9,10 +9,8 @@ using websocketpp::lib::placeholders::_1;
 using websocketpp::lib::placeholders::_2;
 using websocketpp::lib::bind;
 
+using namespace proto;
 using namespace std;
-
-WebsocketServer::WebsocketServer() {
-}
 
 void WebsocketServer::init(condition_variable* actionCondVar, std::queue<ClientAction>* actionsQueue, mutex* actionLock, Server* mainServer) {
 

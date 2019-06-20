@@ -2,10 +2,12 @@
 
 #include "LobbyClientListener.hpp"
 #include "LobbyClientController.hpp"
-#include "../network/SocketClient.hpp"
-#include "../../bom/Client.hpp"
+#include "client/network/SocketClient.hpp"
+#include "bom/Client.hpp"
 
-#include "../../generated/bicyclade.pb.h"
+#include "bicyclade.pb.h"
+#include "clientactions.pb.h"
+#include "serveractions.pb.h"
 
 #include <list>
 
@@ -34,8 +36,8 @@ public:
     virtual ~BasicLobbyClient();
 
     void setExternalListener(LobbyClientListener* listener);
-    void onClientAction(const PClientAction& action);
-    void onServerAction(const PServerAction& action);
+    void onClientAction(const proto::PClientAction& action);
+    void onServerAction(const proto::PServerAction& action);
 
     // -----------------------------------
     // LobbyClientController Implementation

@@ -3,7 +3,7 @@
 #include "ServerConnectionInfo.hpp"
 #include "SocketClientListener.hpp"
 
-#include "../../generated/bicyclade.pb.h"
+#include "bicyclade.pb.h"
 
 /**
  * SocketClient interface is designed to dissociate the ClientApplication with

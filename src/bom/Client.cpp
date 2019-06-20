@@ -1,5 +1,7 @@
 #include "Client.hpp"
 
+using namespace std;
+
 Client::Client(int id) {
     this->id = id;
 }

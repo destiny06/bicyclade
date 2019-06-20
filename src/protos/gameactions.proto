@@ -1,4 +1,5 @@
 syntax = "proto3";
+package proto;
 
 // Actions from the server related to the game
 message PAction_UPDATE_COINS {

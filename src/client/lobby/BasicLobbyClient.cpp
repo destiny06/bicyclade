@@ -1,7 +1,8 @@
-#include "../../generated/bicyclade.pb.h"
 #include "BasicLobbyClient.hpp"
 
 #include <iostream>
+
+using namespace proto;
 
 BasicLobbyClient::BasicLobbyClient(SocketClient& s)
     : LobbyClientController(),

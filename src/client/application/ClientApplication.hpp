@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../lobby/LobbyClientController.hpp"
-#include "../lobby/LobbyClientListener.hpp"
-#include "../game/GameClientController.hpp"
-#include "../game/GameClientListener.hpp"
-#include "../network/SocketClient.hpp"
+#include "client/lobby/LobbyClientController.hpp"
+#include "client/lobby/LobbyClientListener.hpp"
+#include "client/game/GameClientController.hpp"
+#include "client/game/GameClientListener.hpp"
+#include "client/network/SocketClient.hpp"
 
 /**
  * ClientApplication is the interface that describe a Bicyclades client as seen

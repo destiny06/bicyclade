@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../../network/SocketClient.hpp"
-#include "../../network/ServerConnectionInfo.hpp"
-#include "../../network/SocketClientListener.hpp"
+#include "client/network/SocketClient.hpp"
+#include "client/network/ServerConnectionInfo.hpp"
+#include "client/network/SocketClientListener.hpp"
 
-#include "../../../generated/bicyclade.pb.h"
+#include "bicyclade.pb.h"
 
 /**
  * Mock-up on the socket that does not connect to any actual server. Any

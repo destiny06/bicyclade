@@ -1,4 +1,4 @@
-#include "../application/ClientApplication.hpp"
+#include "client/application/ClientApplication.hpp"
 #include "ressources/ClientApplicationFactory.hpp"
 
 #include <iostream>

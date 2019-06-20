@@ -1,9 +1,10 @@
 #pragma once
 
-#include "../game/BasicGameClient.hpp"
+#include "client/game/BasicGameClient.hpp"
+#include "client/network/SocketClient.hpp"
+#include "client/lobby/BasicLobbyClient.hpp"
+
 #include "ClientApplication.hpp"
-#include "../network/SocketClient.hpp"
-#include "../lobby/BasicLobbyClient.hpp"
 
 /**
  * Implementation of ClientApplication
